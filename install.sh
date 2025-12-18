@@ -1,4 +1,3 @@
-cat << 'EOF' > ~/Documents/dev/dotfiles/install.sh
 #!/bin/bash
 
 # 1. Install Oh My Zsh if not already present
@@ -28,17 +27,17 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
 fi
 
 # 5. Link configuration files
+# $(pwd) works in Codespaces because GitHub runs the script from the repo folder
 DOTFILES_PATH=$(pwd)
 echo "Linking configuration files from $DOTFILES_PATH..."
 ln -sf "$DOTFILES_PATH/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_PATH/.p10k.zsh" "$HOME/.p10k.zsh"
 ln -sf "$DOTFILES_PATH/.gitconfig" "$HOME/.gitconfig"
 
-# 6. Set Zsh as the default shell (Specific for Codespaces)
+# 6. Set Zsh as the default shell (Codespaces only)
 if [ "$CODESPACES" = "true" ]; then
   echo "Setting Zsh as the default shell..."
   sudo chsh -s $(which zsh) vscode
 fi
 
 echo "Installation complete!"
-EOF
